@@ -19,4 +19,4 @@ def call_model(state: MessagesState):
 builder = StateGraph(MessagesState)
 builder.add_node("chat", call_model)
 builder.add_edge(START, "chat")
-reg_agent = builder.compile()
+rec_agent = builder.compile()
