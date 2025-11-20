@@ -46,7 +46,7 @@ def classify_intent(state: RetailAgentState):
     # 意图识别prompt
     classify_intent_prompt = f"""
     请分析用户输入的Query，并对其做意图分类:
-    Query: {state['query']}
+    Query: {state["messages"][-1]}
     请提供用户的意图分类.
     """
     # Get structured response directly as dict

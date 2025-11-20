@@ -5,31 +5,31 @@ from core import settings
 from schema import ChatMessage
 
 
-async def amain() -> None:
-    #### ASYNC ####
-    client = AgentClient('http://127.0.0.1:8080', agent='rec-agent')
-
-    print("Agent info:")
-    print(client.info)
-
-    print("Chat example:")
-    response = await client.ainvoke("中国第一个皇帝是谁?")
-    response.pretty_print()
-
-    print("\nStream example:")
-    async for message in client.astream("中国第一个皇帝是谁?"):
-        if isinstance(message, str):
-            print(message, flush=True, end="")
-        elif isinstance(message, ChatMessage):
-            print("\n", flush=True)
-            message.pretty_print()
-        else:
-            print(f"ERROR: Unknown type - {type(message)}")
-
+# async def amain() -> None:
+#     #### ASYNC ####
+#     client = AgentClient('http://127.0.0.1:8080', agent='retail_agent')
+#
+#     print("Agent info:")
+#     print(client.info)
+#
+#     print("Chat example:")
+#     response = await client.ainvoke("中国第一个皇帝是谁?")
+#     response.pretty_print()
+#
+#     print("\nStream example:")
+#     async for message in client.astream("中国第一个皇帝是谁?"):
+#         if isinstance(message, str):
+#             print(message, flush=True, end="")
+#         elif isinstance(message, ChatMessage):
+#             print("\n", flush=True)
+#             message.pretty_print()
+#         else:
+#             print(f"ERROR: Unknown type - {type(message)}")
+#
 
 def main() -> None:
     #### SYNC ####
-    client = AgentClient('http://127.0.0.1:8080', agent='rec-agent')
+    client = AgentClient('http://127.0.0.1:8080', agent='retail_agent')
 
     # print("Agent info:")
     # print(client.info)
