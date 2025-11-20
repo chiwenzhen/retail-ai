@@ -31,7 +31,7 @@ class RetailAgentState(MessagesState):
     query: str
 
     # 意图分类
-    user_intent: UserIntent | None
+    user_intent: str
 
     # 推荐产品
     rec_list: str
@@ -42,18 +42,14 @@ class RetailAgentState(MessagesState):
 def classify_intent(state: RetailAgentState):
     logger.info(f"running classify_intent")
 
-    # 创建带结构化输出的LLM
-    structured_llm = llm.with_structured_output(UserIntent)
-
     # 意图识别prompt
     classify_intent_prompt = f"""
-    请分析用户输入的Query，并对其做意图分类:
+    请分析用户输入的Query，将其意图分类到这三类：产品推荐、产品问答、其他。只需要输出这三个类别之一，不得输出其他内容。
     Query: {state["messages"][-1].content}
-    请提供用户的意图分类.
     """
     logger.info(f"classify_intent_prompt= {classify_intent_prompt}")
     # Get structured response directly as dict
-    user_intent = structured_llm.invoke(classify_intent_prompt)
+    user_intent = llm.invoke(classify_intent_prompt)
     logger.info(f"user_intent= {user_intent}")
 
     return {"user_intent": user_intent}
