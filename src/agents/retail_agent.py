@@ -73,7 +73,7 @@ builder = StateGraph(RetailAgentState)
 builder.add_node("classify_intent", classify_intent)
 builder.add_node("qa", qa)
 builder.add_node("rec", rec)
-builder.add_edge(START, "chat")
+builder.add_edge(START, "classify_intent")
 builder.add_conditional_edges(
     "classify_intent",
     route_intent,
