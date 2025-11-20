@@ -38,21 +38,32 @@ def classify_intent(state: RetailAgentState) -> Command[Literal["qa", "rec"]]:
 
     # 意图识别prompt
     classify_intent_prompt = f"""
-    请分析用户输入的Query，将其意图分类到这三类：产品推荐、产品问答、其他。只需要输出这三个类别之一，不得输出其他内容。
+    请分析用户输入的Query，将其意图分类到这三类：
+    1.财富产品推荐：当用户让你推荐财富产品时，包括储蓄存款、理财、基金、资管、保险、贵金属、柜台债、国债等等
+    2.财富产品详情：当用户让你咨询某款具体的财富产品时，包括储蓄存款、理财、基金、资管、保险、贵金属、柜台债、国债等等
+    3.财富产品查询：当用户想要根据条件搜索符合要求的财富产品时，包括储蓄存款、理财、基金、资管、保险、贵金属、柜台债、国债等等
+    4.财富产品对比：当用户让你对比两款具体的财富产品差异时，包括储蓄存款、理财、基金、资管、保险、贵金属、柜台债、国债等等
+    5.其他：其他问题时触发
+    要求：只能输出[财富产品推荐, 财富产品详情, 财富产品查询, 财富产品对比, 其他]之中的一个，不得输出其他内容。
     Query: {state["messages"][-1].content}
     """
     logger.info(f"classify_intent_prompt= {classify_intent_prompt}")
     # Get structured response directly as dict
     user_intent = llm.invoke(classify_intent_prompt)
     logger.info(f"user_intent= {user_intent}")
-    if user_intent == "产品推荐":
+    if user_intent == "财富产品推荐":
         goto = "rec"
-    elif user_intent == "产品问答":
+    elif user_intent == "财富产品详情":
+        goto = "qa"
+    elif user_intent == "财富产品查询":
+        goto = "qa"
+    elif user_intent == "财富产品对比":
         goto = "qa"
     elif user_intent == "其他":
         goto = "qa"
     else:
         goto = "qa"
+    print(f'user_intent={user_intent}')
     return Command(
         update={"user_intent": user_intent},
         goto=goto

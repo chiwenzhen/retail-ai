@@ -34,21 +34,23 @@ def main() -> None:
     # print("Agent info:")
     # print(client.info)
 
-    # print("Chat example:")
-    # response = client.invoke("中国第一个皇帝是谁?", thread_id='user-123')
-    # response.pretty_print()
-    # response = client.invoke("他的父亲是谁?", thread_id='user-123')
-    # response.pretty_print()
+    print("Chat example:")
+    response = client.invoke("中国第一个皇帝是谁?", thread_id='user-123')
+    response.pretty_print()
+    response = client.invoke("他的父亲是谁?", thread_id='user-123')
+    response.pretty_print()
+    response = client.invoke("请给我推荐理财产品?", thread_id='user-123')
+    response.pretty_print()
 
-    print("\nStream example:")
-    for message in client.stream("中国第一个皇帝是谁?", thread_id='user-123'):
-        if isinstance(message, str):
-            print(message, flush=True, end="")
-        elif isinstance(message, ChatMessage):
-            print("\n", flush=True)
-            message.pretty_print()
-        else:
-            print(f"ERROR: Unknown type - {type(message)}")
+    # print("\nStream example:")
+    # for message in client.stream("中国第一个皇帝是谁?", thread_id='user-123'):
+    #     if isinstance(message, str):
+    #         print(message, flush=True, end="")
+    #     elif isinstance(message, ChatMessage):
+    #         print("\n", flush=True)
+    #         message.pretty_print()
+    #     else:
+    #         print(f"ERROR: Unknown type - {type(message)}")
     # for message in client.stream("他的父亲是谁?", thread_id='user-123'):
     #     if isinstance(message, str):
     #         print(message, flush=True, end="")
