@@ -46,7 +46,7 @@ def classify_intent(state: RetailAgentState):
     # 意图识别prompt
     classify_intent_prompt = f"""
     请分析用户输入的Query，并对其做意图分类:
-    Query: {state["messages"][-1]}
+    Query: {state["messages"][-1].content}
     请提供用户的意图分类.
     """
     # Get structured response directly as dict
@@ -65,7 +65,6 @@ def qa(state: RetailAgentState):
 
 # Define the chat node
 def rec(state: RetailAgentState):
-    response = llm.invoke(state["messages"])
     return {"rec_list": "产品列表\n1.product1\n2.product2\n3.product3"}
 
 # Build and compile graph
