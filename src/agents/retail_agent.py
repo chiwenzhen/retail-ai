@@ -33,7 +33,7 @@ class RetailAgentState(MessagesState):
     # 推荐产品
     rec_list: str
 
-def classify_intent(state: RetailAgentState) -> Command[Literal["search_documentation", "human_review", "draft_response", "bug_tracking"]]:
+def classify_intent(state: RetailAgentState) -> Command[Literal["qa", "rec"]]:
     print(f"running classify_intent")
 
     # 意图识别prompt
