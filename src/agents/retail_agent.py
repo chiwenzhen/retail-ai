@@ -13,9 +13,6 @@ llm = init_chat_model(
     api_key="sk-72fb5cc108ef4c52b08c549d25963bff"
 )
 
-class UserIntent(TypedDict):
-    intent: Literal["产品推荐", "产品问答", "其他"]
-
 class UserProfile:
     age: int
     risk_grd: str
@@ -57,7 +54,7 @@ def classify_intent(state: RetailAgentState):
 # 根据意图路由
 def route_intent(state: RetailAgentState):
     logger.info(f"running route_intent")
-    return state["user_intent"].intent
+    return state["user_intent"]
 
 # Define the chat node
 def qa(state: RetailAgentState):
@@ -68,7 +65,8 @@ def qa(state: RetailAgentState):
 # Define the chat node
 def rec(state: RetailAgentState):
     logger.info(f"running rec")
-    return {"rec_list": "产品列表\n1.product1\n2.product2\n3.product3"}
+    response = "产品列表\n1.product1\n2.product2\n3.product3"
+    return {"rec_list": response, "messages": [response]}
 
 # Build and compile graph
 builder = StateGraph(RetailAgentState)
