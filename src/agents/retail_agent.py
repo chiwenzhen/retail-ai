@@ -83,6 +83,6 @@ builder.add_conditional_edges(
         "其他": "qa",
     },
 )
-builder.add_node("rec", END)
-builder.add_node("qa", END)
+builder.add_edge("rec", END)
+builder.add_edge("qa", END)
 retail_agent = builder.compile()
